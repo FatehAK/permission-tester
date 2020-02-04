@@ -112,63 +112,96 @@ if ('clipboard' in navigator) {
 }
 
 /* gyroscope */
+const startGyro = document.querySelector('.start-gyro');
 const noGyroSupport = document.querySelector('.no-gyro');
 const gyroX = document.querySelector('.gyro-x');
 const gyroY = document.querySelector('.gyro-y');
 const gyroZ = document.querySelector('.gyro-z');
+let gyro;
 if ('Gyroscope' in window) {
     noGyroSupport.innerHTML = 'Supported';
-    const gyro = new Gyroscope();
-    gyro.start();
-    gyro.onreading = () => {
-        gyroX.innerHTML = `Angular Velocity X: ${gyro.x}`;
-        gyroY.innerHTML = `Angular Velocity Y: ${gyro.y}`;
-        gyroZ.innerHTML = `Angular Velocity Z: ${gyro.z}`;
-    };
-    gyro.onerror = () => {
-        noGyroSupport.innerHTML = 'Not Supported';
-    }
+    gyro = new Gyroscope();
 } else {
     noGyroSupport.innerHTML = 'Not Supported';
 }
 
+gyro.onreading = () => {
+    gyroX.innerHTML = `Angular Velocity X: ${gyro.x}`;
+    gyroY.innerHTML = `Angular Velocity Y: ${gyro.y}`;
+    gyroZ.innerHTML = `Angular Velocity Z: ${gyro.z}`;
+};
+gyro.onerror = () => {
+    noGyroSupport.innerHTML = 'Not Supported';
+};
+
+startGyro.addEventListener('click', function() {
+    if ('Gyroscope' in window) {
+        noGyroSupport.innerHTML = 'Supported';
+        gyro.start();
+    } else {
+        noGyroSupport.innerHTML = 'Not Supported';
+    }
+});
+
 /* accelerometer */
+const startAcc = document.querySelector('.start-acc');
 const noAccSupport = document.querySelector('.no-acc');
 const accX = document.querySelector('.acc-x');
 const accY = document.querySelector('.acc-y');
 const accZ = document.querySelector('.acc-z');
+let acc;
 if ('Accelerometer' in window) {
     noAccSupport.innerHTML = 'Supported';
-    const acc = new Accelerometer({ referenceFrame: 'device' });
-    acc.start();
-    acc.onreading = () => {
-        accX.innerHTML = `Acceleration X: ${acc.x}`;
-        accY.innerHTML = `Acceleration Y: ${acc.y}`;
-        accZ.innerHTML = `Acceleration Z: ${acc.z}`;
-    };
-    acc.onerror = () => {
-        noAccSupport.innerHTML = 'Not Supported';
-    }
+    acc = new Accelerometer({ referenceFrame: 'device' });
 } else {
     noAccSupport.innerHTML = 'Not Supported';
 }
 
+acc.onreading = () => {
+    accX.innerHTML = `Acceleration X: ${acc.x}`;
+    accY.innerHTML = `Acceleration Y: ${acc.y}`;
+    accZ.innerHTML = `Acceleration Z: ${acc.z}`;
+};
+acc.onerror = () => {
+    noAccSupport.innerHTML = 'Not Supported';
+};
+
+startAcc.addEventListener('click', function() {
+    if ('Accelerometer' in window) {
+        noAccSupport.innerHTML = 'Supported';
+        acc.start();
+    } else {
+        noAccSupport.innerHTML = 'Not Supported';
+    }
+});
+
 /* orientation sensor */
+const startOri = document.querySelector('.start-ori');
 const noOriSupport = document.querySelector('.no-ori');
 const oriText = document.querySelector('.ori-text');
+let ori;
 if ('AbsoluteOrientationSensor' in window) {
     noOriSupport.innerHTML = 'Supported';
-    const ori = new AbsoluteOrientationSensor();
-    ori.start();
-    ori.onreading = () => {
-        oriText.innerHTML = `Orientation Quats: ${ori.quaternion}`;
-    };
-    ori.onerror = () => {
-        noOriSupport.innerHTML = 'Not Supported';
-    }
+    ori = new AbsoluteOrientationSensor();
 } else {
     noOriSupport.innerHTML = 'Not Supported';
 }
+
+ori.onreading = () => {
+    oriText.innerHTML = `Orientation Quats: ${ori.quaternion}`;
+};
+ori.onerror = () => {
+    noOriSupport.innerHTML = 'Not Supported';
+};
+
+startOri.addEventListener('click', function() {
+    if ('AbsoluteOrientationSensor' in window) {
+        noOriSupport.innerHTML = 'Supported';
+        ori.start();
+    } else {
+        noOriSupport.innerHTML = 'Not Supported';
+    }
+});
 
 /* Device Orientation API */
 const dOriAbs = document.querySelector('.device-ori-abs');
