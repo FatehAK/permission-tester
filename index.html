@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Permission Tester</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="row-head">
+                <span>Location:</span>
+                <span class="no-geo feat-support"></span>
+            </div>
+            <div class="row-body">
+                <button class="row-cta get-location">Location</button>
+                <div>Your Coords: <span class="location-text"></span></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row-head">
+                <span>Camera:</span>
+                <span class="no-cam feat-support"></span>
+            </div>
+            <div class="row-body video">
+                <button class="row-cta get-camera">Camera</button>
+                <div>
+                    <video class="my-video"></video>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row-head">
+                <span>Microphone/Sound:</span>
+                <span class="no-mic feat-support"></span>
+            </div>
+            <div class="row-body audio">
+                <div>
+                    <button class="start-mic">
+                        <img src="play.svg" alt="play audio" width="12" />
+                    </button>
+                    <button class="stop-mic" disabled>
+                        <img src="stop.svg" alt="stop audio" width="12" />
+                    </button>
+                </div>
+                <div class="audio-ctn"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row-head">
+                <span>Telephone:</span>
+            </div>
+            <div class="row-body">
+                <a href="tel:8645634521" class="row-cta">Call</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row-head">
+                <span>Mail:</span>
+            </div>
+            <div class="row-body">
+                <a href="mailto:test@gmail.com" class="row-cta">Mail</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row-head">
+                <span>Clipboard:</span>
+                <span class="no-clip feat-support"></span>
+            </div>
+            <div class="row-body clip">
+                <div>
+                    <span class="copy-text">Testing</span>
+                    <button class="row-cta copy-btn">Copy</button>
+                </div>
+                <input type="text" class="row-input" placeholder="Try Pasting Here" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row-head">
+                <span>Gyroscope:</span>
+                <span class="no-gyro feat-support"></span>
+            </div>
+            <div class="row-body gyro">
+                <div class="gyro-x"></div>
+                <div class="gyro-y"></div>
+                <div class="gyro-z"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row-head">
+                <span>Accelerometer:</span>
+                <span class="no-acc feat-support"></span>
+            </div>
+            <div class="row-body acc">
+                <div class="acc-x"></div>
+                <div class="acc-y"></div>
+                <div class="acc-z"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row-head">
+                <span>Orientation:</span>
+                <span class="no-ori feat-support"></span>
+            </div>
+            <div class="row-body ori">
+                <div class="ori-text"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row-head">
+                <span>Device Orientation API</span>
+            </div>
+            <div class="row-body device-ori">
+                <div class="device-ori-abs"></div>
+                <div class="device-ori-alpha"></div>
+                <div class="device-ori-beta"></div>
+                <div class="device-ori-gamma"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row-head">
+                <span>Device Motion API</span>
+            </div>
+            <div class="row-body device-motion">
+                <div class="device-motion-acc"></div>
+                <div class="device-motion-acc-g"></div>
+                <div class="device-motion-rotation"></div>
+                <div class="device-motion-interval"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
