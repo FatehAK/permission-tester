@@ -226,3 +226,24 @@ window.addEventListener('devicemotion', function(evt) {
     dMotionRotation.innerHTML = `Rotation Rate: Alpha: ${evt.rotationRate.alpha}, Beta: ${evt.rotationRate.beta}, Gamma: ${evt.rotationRate.gamma}`;
     dMotionInterval.innerHTML = `Interval: ${evt.interval}`;
 }, true);
+
+/* Vibration API */
+const startVibrateSingle = document.querySelector('.start-vib-single');
+const startVibrateMultiple = document.querySelector('.start-vib-multiple');
+const noVibSupport = document.querySelector('.no-vib');
+startVibrateSingle.addEventListener('click', function() {
+    if ('vibrate' in navigator) {
+        noVibSupport.innerHTML = 'Supported';
+        window.navigator.vibrate([200]);
+    } else {
+        noVibSupport.innerHTML = 'Not Supported';
+    }
+});
+startVibrateMultiple.addEventListener('click', function() {
+    if ('vibrate' in navigator) {
+        noVibSupport.innerHTML = 'Supported';
+        window.navigator.vibrate([200, 100, 200]);
+    } else {
+        noVibSupport.innerHTML = 'Not Supported';
+    }
+});
