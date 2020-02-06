@@ -25,6 +25,8 @@ const resetCamera = document.querySelector('.reset-camera');
 let videoStream;
 getCamera.addEventListener('click', function() {
     if ('mediaDevices' in navigator) {
+        getCamera.disabled = true;
+        resetCamera.disabled = false;
         noCamSupport.innerHTML = 'Supported'
         navigator.mediaDevices.getUserMedia(videoConstraints).then((stream) => {
             videoStream = stream;
@@ -42,6 +44,8 @@ getCamera.addEventListener('click', function() {
 });
 
 resetCamera.addEventListener('click', function () {
+    getCamera.disabled = false;
+    resetCamera.disabled = true;
     videoStream.getTracks().forEach(track => track.stop());
 });
 
@@ -255,9 +259,13 @@ const dOriBeta = document.querySelector('.device-ori-beta');
 const dOriGamma = document.querySelector('.device-ori-gamma');
 
 startDori.addEventListener('click', function() {
+    startDori.disabled = true;
+    startDori.disabled = false;
     window.addEventListener('deviceorientation', handleOrientation);
 });
 stopDori.addEventListener('click', function () {
+    startDori.disabled = false;
+    startDmo.disabled = true;
     window.removeEventListener('deviceorientation', handleOrientation);
 });
 function handleOrientation(evt) {
@@ -276,9 +284,13 @@ const dMotionRotation = document.querySelector('.device-motion-rotation');
 const dMotionInterval = document.querySelector('.device-motion-interval');
 
 startDmo.addEventListener('click', function() {
+    startDmo.disabled = true;
+    startDmo.disabled = false;
     window.addEventListener('devicemotion', handleMotion);
 });
 stopDmo.addEventListener('click', function() {
+    startDmo.disabled = false;
+    startDmo.disabled = true;
     window.removeEventListener('devicemotion', handleMotion);
 });
 function handleMotion(evt) {

@@ -66,6 +66,10 @@ body {
   outline: none;
 }
 
+.row-cta:disabled {
+  background: lightgray !important;
+}
+
 /* swal overrides */
 .swal2-confirm {
   background: #fbbb00 !important;
