@@ -260,12 +260,12 @@ const dOriGamma = document.querySelector('.device-ori-gamma');
 
 startDori.addEventListener('click', function() {
     startDori.disabled = true;
-    startDori.disabled = false;
+    stopDori.disabled = false;
     window.addEventListener('deviceorientation', handleOrientation);
 });
 stopDori.addEventListener('click', function () {
     startDori.disabled = false;
-    startDmo.disabled = true;
+    stopDori.disabled = true;
     window.removeEventListener('deviceorientation', handleOrientation);
 });
 function handleOrientation(evt) {
@@ -285,12 +285,12 @@ const dMotionInterval = document.querySelector('.device-motion-interval');
 
 startDmo.addEventListener('click', function() {
     startDmo.disabled = true;
-    startDmo.disabled = false;
+    stopDmo.disabled = false;
     window.addEventListener('devicemotion', handleMotion);
 });
 stopDmo.addEventListener('click', function() {
     startDmo.disabled = false;
-    startDmo.disabled = true;
+    stopDmo.disabled = true;
     window.removeEventListener('devicemotion', handleMotion);
 });
 function handleMotion(evt) {
