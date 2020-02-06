@@ -20,20 +20,30 @@ getLocation.addEventListener('click', function() {
 /* camera */
 const videoConstraints = { audio: true, video: { width: 400, height: 300 } };
 const noCamSupport = document.querySelector('.no-cam');
-if ('mediaDevices' in navigator) {
-    noCamSupport.innerHTML = 'Supported'
-    navigator.mediaDevices.getUserMedia(videoConstraints).then((stream) => {
-        const video = document.querySelector('.my-video');
-        video.srcObject = stream;
-        video.onloadedmetadata = function(evt) {
-            video.play();
-        };
-    }).catch((err) => {
-        Swal.fire(err.name + ': ' + err.message);
-    });
-} else {
-    noCamSupport.innerHTML = 'Not Supported';
-}
+const getCamera = document.querySelector('.get-camera');
+const resetCamera = document.querySelector('.reset-camera');
+let videoStream;
+getCamera.addEventListener('click', function() {
+    if ('mediaDevices' in navigator) {
+        noCamSupport.innerHTML = 'Supported'
+        navigator.mediaDevices.getUserMedia(videoConstraints).then((stream) => {
+            videoStream = stream;
+            const video = document.querySelector('.my-video');
+            video.srcObject = stream;
+            video.onloadedmetadata = function(evt) {
+                video.play();
+            };
+        }).catch((err) => {
+            Swal.fire(err.name + ': ' + err.message);
+        });
+    } else {
+        noCamSupport.innerHTML = 'Not Supported';
+    }
+});
+
+resetCamera.addEventListener('click', function () {
+    videoStream.getTracks().forEach(track => track.stop());
+});
 
 /* mic */
 let chunks = [];
@@ -113,6 +123,7 @@ if ('clipboard' in navigator) {
 
 /* gyroscope */
 const startGyro = document.querySelector('.start-gyro');
+const stopGyro = document.querySelector('.stop-gyro');
 const noGyroSupport = document.querySelector('.no-gyro');
 const gyroX = document.querySelector('.gyro-x');
 const gyroY = document.querySelector('.gyro-y');
@@ -124,7 +135,6 @@ if ('Gyroscope' in window) {
 } else {
     noGyroSupport.innerHTML = 'Not Supported';
 }
-
 gyro.onreading = () => {
     gyroX.innerHTML = `Angular Velocity X: ${gyro.x}`;
     gyroY.innerHTML = `Angular Velocity Y: ${gyro.y}`;
@@ -133,11 +143,22 @@ gyro.onreading = () => {
 gyro.onerror = () => {
     noGyroSupport.innerHTML = 'Not Supported';
 };
-
 startGyro.addEventListener('click', function() {
     if ('Gyroscope' in window) {
         noGyroSupport.innerHTML = 'Supported';
+        startGyro.disabled = true;
+        stopGyro.disabled = false;
         gyro.start();
+    } else {
+        noGyroSupport.innerHTML = 'Not Supported';
+    }
+});
+stopGyro.addEventListener('click', function() {
+    if ('Gyroscope' in window) {
+        noGyroSupport.innerHTML = 'Supported';
+        startGyro.disabled = false;
+        stopGyro.disabled = true;
+        gyro.stop();
     } else {
         noGyroSupport.innerHTML = 'Not Supported';
     }
@@ -145,6 +166,7 @@ startGyro.addEventListener('click', function() {
 
 /* accelerometer */
 const startAcc = document.querySelector('.start-acc');
+const stopAcc = document.querySelector('.stop-acc');
 const noAccSupport = document.querySelector('.no-acc');
 const accX = document.querySelector('.acc-x');
 const accY = document.querySelector('.acc-y');
@@ -156,7 +178,6 @@ if ('Accelerometer' in window) {
 } else {
     noAccSupport.innerHTML = 'Not Supported';
 }
-
 acc.onreading = () => {
     accX.innerHTML = `Acceleration X: ${acc.x}`;
     accY.innerHTML = `Acceleration Y: ${acc.y}`;
@@ -165,11 +186,22 @@ acc.onreading = () => {
 acc.onerror = () => {
     noAccSupport.innerHTML = 'Not Supported';
 };
-
 startAcc.addEventListener('click', function() {
     if ('Accelerometer' in window) {
         noAccSupport.innerHTML = 'Supported';
+        startAcc.disabled = true;
+        stopAcc.disabled = false;
         acc.start();
+    } else {
+        noAccSupport.innerHTML = 'Not Supported';
+    }
+});
+stopAcc.addEventListener('click', function () {
+    if ('Accelerometer' in window) {
+        noAccSupport.innerHTML = 'Supported';
+        startAcc.disabled = false;
+        stopAcc.disabled = true;
+        acc.stop();
     } else {
         noAccSupport.innerHTML = 'Not Supported';
     }
@@ -177,6 +209,7 @@ startAcc.addEventListener('click', function() {
 
 /* orientation sensor */
 const startOri = document.querySelector('.start-ori');
+const stopOri = document.querySelector('.stop-ori');
 const noOriSupport = document.querySelector('.no-ori');
 const oriText = document.querySelector('.ori-text');
 let ori;
@@ -186,50 +219,81 @@ if ('AbsoluteOrientationSensor' in window) {
 } else {
     noOriSupport.innerHTML = 'Not Supported';
 }
-
 ori.onreading = () => {
     oriText.innerHTML = `Orientation Quats: ${ori.quaternion}`;
 };
 ori.onerror = () => {
     noOriSupport.innerHTML = 'Not Supported';
 };
-
 startOri.addEventListener('click', function() {
     if ('AbsoluteOrientationSensor' in window) {
         noOriSupport.innerHTML = 'Supported';
+        startOri.disabled = true;
+        stopOri.disabled = false;
         ori.start();
     } else {
         noOriSupport.innerHTML = 'Not Supported';
     }
 });
+stopOri.addEventListener('click', function() {
+    if ('AbsoluteOrientationSensor' in window) {
+        noOriSupport.innerHTML = 'Supported';
+        startOri.disabled = false;
+        stopOri.disabled = true;
+        ori.start();
+    } else {
+        noOriSupport.innerHTML = 'Not Supported';
+    }
+})
 
 /* Device Orientation API */
+const startDori = document.querySelector('.start-dori');
+const stopDori = document.querySelector('.stop-dori');
 const dOriAbs = document.querySelector('.device-ori-abs');
 const dOriAlpha = document.querySelector('.device-ori-alpha');
 const dOriBeta = document.querySelector('.device-ori-beta');
 const dOriGamma = document.querySelector('.device-ori-gamma');
-window.addEventListener('deviceorientation', function(evt) {
+
+startDori.addEventListener('click', function() {
+    window.addEventListener('deviceorientation', handleOrientation);
+});
+stopDori.addEventListener('click', function () {
+    window.removeEventListener('deviceorientation', handleOrientation);
+});
+function handleOrientation(evt) {
     dOriAbs.innerHTML = `Absolute: ${evt.absolute}`;
     dOriAlpha.innerHTML = `Aplha: ${evt.alpha}`;
     dOriBeta.innerHTML = `Beta: ${evt.beta}`;
     dOriGamma.innerHTML = `Gamma: ${evt.gamma}`;
-});
+}
 
 /* Device Motion API */
+const startDmo = document.querySelector('.start-dmo');
+const stopDmo = document.querySelector('.stop-dmo');
 const dMotionAcc = document.querySelector('.device-motion-acc');
 const dMotionAccG = document.querySelector('.device-motion-acc-g');
 const dMotionRotation = document.querySelector('.device-motion-rotation');
 const dMotionInterval = document.querySelector('.device-motion-interval');
-window.addEventListener('devicemotion', function(evt) {
+
+startDmo.addEventListener('click', function() {
+    window.addEventListener('devicemotion', handleMotion);
+});
+stopDmo.addEventListener('click', function() {
+    window.removeEventListener('devicemotion', handleMotion);
+});
+function handleMotion(evt) {
     dMotionAcc.innerHTML = `Acceleration: X: ${evt.acceleration.x}, Y: ${evt.acceleration.y}, Z: ${evt.acceleration.z}`;
     dMotionAccG.innerHTML = `Acceleration with Gravity: X: ${evt.acceleration.x}, Y: ${evt.acceleration.y}, Z: ${evt.acceleration.z}`;
     dMotionRotation.innerHTML = `Rotation Rate: Alpha: ${evt.rotationRate.alpha}, Beta: ${evt.rotationRate.beta}, Gamma: ${evt.rotationRate.gamma}`;
     dMotionInterval.innerHTML = `Interval: ${evt.interval}`;
-}, true);
+};
 
 /* Vibration API */
 const startVibrateSingle = document.querySelector('.start-vib-single');
 const startVibrateMultiple = document.querySelector('.start-vib-multiple');
+const startVibrateCustom = document.querySelector('.start-vib-custom');
+const vibInput = document.querySelector('.input-vib');
+
 const noVibSupport = document.querySelector('.no-vib');
 startVibrateSingle.addEventListener('click', function() {
     if ('vibrate' in navigator) {
@@ -243,6 +307,15 @@ startVibrateMultiple.addEventListener('click', function() {
     if ('vibrate' in navigator) {
         noVibSupport.innerHTML = 'Supported';
         window.navigator.vibrate([200, 100, 200]);
+    } else {
+        noVibSupport.innerHTML = 'Not Supported';
+    }
+});
+startVibrateCustom.addEventListener('click', function() {
+    if ('vibrate' in navigator) {
+        noVibSupport.innerHTML = 'Supported';
+        const vibArray = vibInput.split(',');
+        window.navigator.vibrate(vibArray);
     } else {
         noVibSupport.innerHTML = 'Not Supported';
     }

@@ -28,7 +28,10 @@
                 <span class="no-cam feat-support"></span>
             </div>
             <div class="row-body video">
-                <button class="row-cta get-camera">Camera</button>
+                <div class="row-cta-wrap">
+                    <button class="row-cta get-camera">Start</button>
+                    <button class="row-cta reset-camera">Stop</button>
+                </div>
                 <div>
                     <video class="my-video"></video>
                 </div>
@@ -91,7 +94,10 @@
                 <span class="no-gyro feat-support"></span>
             </div>
             <div class="row-body gyro">
-                <button class="row-cta start-gyro">Start</button>
+                <div class="row-cta-wrap">
+                    <button class="row-cta start-gyro">Start</button>
+                    <button class="row-cta stop-gyro" disabled>Stop</button>
+                </div>
                 <div class="gyro-x"></div>
                 <div class="gyro-y"></div>
                 <div class="gyro-z"></div>
@@ -104,7 +110,10 @@
                 <span class="no-acc feat-support"></span>
             </div>
             <div class="row-body acc">
-                <button class="row-cta start-acc">Start</button>
+                <div class="row-cta-wrap">
+                    <button class="row-cta start-acc">Start</button>
+                    <button class="row-cta stop-acc" disabled>Stop</button>
+                </div>
                 <div class="acc-x"></div>
                 <div class="acc-y"></div>
                 <div class="acc-z"></div>
@@ -118,6 +127,7 @@
             </div>
             <div class="row-body ori">
                 <button class="row-cta start-ori">Start</button>
+                <button class="row-cta stop-ori" disabled>Stop</button>
                 <div class="ori-text"></div>
             </div>
         </div>
@@ -127,6 +137,10 @@
                 <span>Device Orientation API:</span>
             </div>
             <div class="row-body device-ori">
+                <div class="row-cta-wrap">
+                    <button class="row-cta start-dori">Start</button>
+                    <button class="row-cta stop-dori" disabled>Stop</button>
+                </div>
                 <div class="device-ori-abs"></div>
                 <div class="device-ori-alpha"></div>
                 <div class="device-ori-beta"></div>
@@ -139,6 +153,10 @@
                 <span>Device Motion API:</span>
             </div>
             <div class="row-body device-motion">
+                <div class="row-cta-wrap">
+                    <button class="row-cta start-dmo">Start</button>
+                    <button class="row-cta stop-dmo" disabled>Stop</button>
+                </div>
                 <div class="device-motion-acc"></div>
                 <div class="device-motion-acc-g"></div>
                 <div class="device-motion-rotation"></div>
@@ -151,9 +169,15 @@
                 <span>Vibration API:</span>
                 <span class="no-vib feat-support"></span>
             </div>
-            <div class="row-body">
-                <button class="row-cta start-vib-single">Single</button>
-                <button class="row-cta start-vib-multiple">Multiple</button>
+            <div class="row-body vib">
+                <div>
+                    <button class="row-cta start-vib-single">Single</button>
+                    <button class="row-cta start-vib-multiple">Multiple</button>
+                </div>
+                <div>
+                    <input type="text" class="row-input input-vib" placeholder="comma seperated values" />
+                    <button class="row-cta start-vib-custom">Custom</button>
+                </div>
             </div>
         </div>
     </div>

@@ -165,7 +165,8 @@ body {
 .row-body.gyro,
 .row-body.acc,
 .row-body.device-ori,
-.row-body.device-motion {
+.row-body.device-motion,
+.row-body.vib {
   margin: 10px 0 0 0;
   flex-direction: column;
 }
@@ -173,4 +174,10 @@ body {
 .row-body.device-ori,
 .row-body.device-motion {
   align-items: flex-start;
+}
+
+.row-cta-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
