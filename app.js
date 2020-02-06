@@ -326,7 +326,7 @@ startVibrateMultiple.addEventListener('click', function() {
 startVibrateCustom.addEventListener('click', function() {
     if ('vibrate' in navigator) {
         noVibSupport.innerHTML = 'Supported';
-        const vibArray = vibInput.split(',');
+        const vibArray = vibInput.value.split(',');
         window.navigator.vibrate(vibArray);
     } else {
         noVibSupport.innerHTML = 'Not Supported';
