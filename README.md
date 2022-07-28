@@ -1,6 +1,6 @@
 # Permission-Tester
 
-A website for testing various external permissions available on the web and mobile-web. They permissions included are :-
+A website for testing various external permissions available on the web and mobile-web. The permissions included are :-
 
 * Location
 * Camera
